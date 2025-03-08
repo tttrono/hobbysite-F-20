@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title> Commissions </title>
+    </head>
+    <body>
+        <h2> {{ comments.0.commission.title }} </h2>
+        <ul>
+			{% for comment in comments %}
+			    	{{ comment.entry }}
+					{{ comment.created_on }}
+			{% endfor %}
+        </ul>
+    </body>
+</html>
