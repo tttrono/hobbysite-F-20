@@ -6,14 +6,17 @@
 		<h3> {{ commission.title }} </h3>
 			 {{ commission.description }} <br> <br>
 		     People required: {{ commission.people_required }} <br>
-			 Created on: {{ commission.created_on }} <br> 
 			 Updated on: {{ commission.updated_on }} <br> <br>
         <b> Comments </b>
         <ul>
-			{% for comment in comments %}
-			    	{{ comment.entry }} <br>
-					{{ comment.created_on }} <br> <br>
-			{% endfor %}
+			{% if comments %}
+				{% for comment in comments %}
+				    	{{ comment.entry }} <br>
+						{{ comment.created_on }} <br> <br>
+				{% endfor %}
+			{% else %}
+				No comments yet.
+			{% endif %}
         </ul>
     </body>
 </html>
