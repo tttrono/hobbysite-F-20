@@ -8,11 +8,15 @@
 			&emsp; {{ type }} <br>
 			
 			<ul>
-				{% for product in products %}
-					{% if product.product_type == type %}
-	                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
-					{% endif %}
-				{% endfor %}
+				{% if products %}
+					{% for product in products %}
+						{% if product.product_type == type %}
+		                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					No products available.
+				{% endif %}
 			</ul>
 			
 		{% endfor %}
