@@ -32,8 +32,6 @@ class Comment(models.Model):
     class Meta:
         verbose_name_plural = 'Comments'
         ordering = ['-created_on']
-        
-    # def __str__(self):
-    #     return self.name
+
 
 
