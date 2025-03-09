@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title> Commissions </title>
+    </head>
+    <body>
+        <h2> Commissions </h2>
+        <ul>
+			{% for commission in commissions %}
+                <a href="{{ commission.get_absolute_url }}"> {{ commission.title }} </a> <br>
+				{{ commission.description }} <br> 
+				People required: {{ commission.people_required }}<br> <br>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
