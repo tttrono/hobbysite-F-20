@@ -4,14 +4,18 @@
     </head>
     <body>
         <h2> Products </h2>
-        <ul>
-			{% for product in products %}
-                <li><a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
-            {% endfor %}
-<!--			{% for type in productTypes %}-->
-<!--                <h3> {{ type.name }} </h3>-->
-				
-<!--            {% endfor %}-->
-        </ul>
+		{% for type in product_types %}
+			&emsp; {{ type }} <br>
+			
+			<ul>
+				{% for product in products %}
+					{% if product.product_type == type %}
+	                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
+					{% endif %}
+				{% endfor %}
+			</ul>
+			
+		{% endfor %}
+        
     </body>
 </html>

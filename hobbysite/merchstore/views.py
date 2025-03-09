@@ -13,6 +13,14 @@ class ProductListView(ListView):
     context_object_name = 'products'
     template_name = "items.html"
     
+    def get_context_data(self, **kwargs):
+        context = super(ProductListView, self).get_context_data(**kwargs)
+        context.update({
+            'product_types': ProductType.objects.order_by('name'),
+            #'more_context': Model.objects.all(),
+        })
+        return context
+    
 class ProductDetailView(DetailView):
     """A view for detailed view of a product."""
     model = Product
