@@ -13,9 +13,24 @@ class CommissionListView(ListView):
     context_object_name = 'commissions'
     template_name = "list.html"
     
-class CommissionDetailView(DetailView):
-    """A view for a detailed view of a commission with comments."""
-    model = Commission
-    context_object_name = 'commission'
-    template_name = "detail.html"
+# class CommissionDetailView(DetailView):
+#     """A view for a detailed view of a commission with comments."""
+#     #model = Comment.objects.filter(commission=Commission.objects.get(pk=pk))
+#     model = Comment
+#     context_object_name = 'comments'
+#     template_name = "detail.html"
+#
+#     def get_object(self, queryset=None):
+#          return Comment.objects.filter(commission__id=id)
+                                       #        pk=self.kwargs.get('pk'))
+                                       
+def detail(request, id):
+    commission = Commission.objects.get(id=id)
+    comments = Comment.objects.filter(commission__id=id)
+    context = {
+        'commission' : commission,
+        'comments': comments
+    }
+            
+    return render(request, "detail.html", context)
     

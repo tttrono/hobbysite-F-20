@@ -1,13 +1,18 @@
 <html>
     <head>
-        <title> Commissions </title>
+        <title> {{ commission.title }} </title>
     </head>
     <body>
-        <h2> {{ comments.0.commission.title }} </h2>
+		<h3> {{ commission.title }} </h3>
+			 {{ commission.description }} <br> <br>
+		     People required: {{ commission.people_required }} <br>
+			 Created on: {{ commission.created_on }} <br> 
+			 Updated on: {{ commission.updated_on }} <br> <br>
+        <b> Comments </b>
         <ul>
 			{% for comment in comments %}
-			    	{{ comment.entry }}
-					{{ comment.created_on }}
+			    	{{ comment.entry }} <br>
+					{{ comment.created_on }} <br> <br>
 			{% endfor %}
         </ul>
     </body>

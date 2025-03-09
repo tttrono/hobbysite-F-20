@@ -10,7 +10,7 @@ class Commission(models.Model):
     description = models.TextField()
     people_required = models.PositiveIntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
     
     class Meta:
         verbose_name_plural = 'Commissions'
@@ -18,13 +18,16 @@ class Commission(models.Model):
         
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+         return reverse('commissions:detail', args=[self.id])
 
 class Comment(models.Model):
     """A model for comments on commissions."""
     commission = models.ForeignKey(Commission, null=False, on_delete=models.CASCADE)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
     
     class Meta:
         verbose_name_plural = 'Comments'
@@ -32,7 +35,5 @@ class Comment(models.Model):
         
     # def __str__(self):
     #     return self.name
-    
-    def get_absolute_url(self):
-        return reverse('commissions:detail', args=[self.pk])
+
 
