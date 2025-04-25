@@ -1,12 +1,17 @@
-<html>
-    <head>
-        <title>Hobbysite</title>
-    </head>
-    <body>
-        <h2> Hobbysite </h2>
-        <ul>
-			<li><a href="/merchstore/items"> Merch store </a> </li>
-			<li><a href="/commissions/list"> Commissions </a> </li>
-        </ul>
-    </body>
-</html>
+
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+	<h2> Hobbysite </h2>
+	<ul>
+		<li><a href="/merchstore/items"> Merch store </a> </li>
+		<li><a href="/commissions/list"> Commissions </a> </li>
+	</ul>
+	
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}

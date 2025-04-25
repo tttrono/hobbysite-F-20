@@ -23,5 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('', include('merchstore.urls', namespace='merchstore')),
-    path('', include('commissions.urls', namespace='commissions'))
+    path('', include('commissions.urls', namespace='commissions')),
+    path('', include('user_management.urls', namespace='user_management')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
