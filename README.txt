@@ -1,1 +1,0 @@
-TRONO, Theiss Thella C.
