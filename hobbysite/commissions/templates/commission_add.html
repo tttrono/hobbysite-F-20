@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Add a commission {% endblock title %}
+
+{% block content%}
+
+    <h2> Add a commission </h2>
+		
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.as_div }}
+			<button type="submit"> Submit </button>
+		</form> 
+		<br>
+
+{% endblock %}

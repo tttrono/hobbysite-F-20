@@ -7,6 +7,9 @@
 			 {{ commission.description }} <br> <br>
 		     People required: {{ commission.people_required }} <br>
 			 Updated on: {{ commission.updated_on }} <br> <br>
+			 
+			 <a href="{% url 'commissions:edit' pk=commission.pk %}"> Update this commission </a> <br><br> 
+			 
         <b> Comments </b>
         <ul>
 			{% if comments %}
