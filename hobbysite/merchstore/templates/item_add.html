@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Add a product {% endblock title %}
+
+{% block content %}
+
+	<h2> Add a Product Type </h2>
+
+	<form method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="button"> Add product </button> 
+		or <a href= "{% url 'merchstore:add_product_type' %}" > Add a product type </a> <br>
+	</form>
+
+{% endblock content %}
+

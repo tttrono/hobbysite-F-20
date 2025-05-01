@@ -6,7 +6,7 @@
         <h2> Products </h2>
 		<ul>
 			{% for type in product_types %}
-				{{ type }} <br> 
+				<b> {{ type }} </b> <br> 
 				
 				<ul>
 					{% if products %}
@@ -18,9 +18,12 @@
 					{% else %}
 						No products available.
 					{% endif %}
+					
 				</ul>
 				
 			{% endfor %}
+			
+			<br><a href= "{% url 'merchstore:add' %}" > Add a product </a> <br>
         </ul>
     </body>
 </html>

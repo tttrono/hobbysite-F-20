@@ -8,6 +8,8 @@
 			{{ product.product_type }} <br>
 			{{ product.description }} <br> <br>
 			{{ product.price }} <br>
+			<a href="{% url 'merchstore:update' pk=product.pk %}"> Update this product </a> 
+			
         </ul>
     </body>
 </html>
