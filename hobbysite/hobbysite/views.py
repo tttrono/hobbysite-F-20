@@ -3,5 +3,5 @@ from django.http import HttpResponse
 
 from . import templates
 
-def index(request):
-    return render(request, "index.html", context=None)
+def home(request):
+    return render(request, "home.html", context=None)
