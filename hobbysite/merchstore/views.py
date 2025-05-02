@@ -1,7 +1,7 @@
 from django import template
-from django.shortcuts import render
 from django.http import HttpResponse
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import render
+from django.urls import reverse
 
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
@@ -12,7 +12,7 @@ from .forms import ProductForm, ProductTypeForm
 from .models import Product, ProductType
 
 class ProductListView(ListView):
-    """A detailed view of products."""
+    """A list view of products."""
     model = Product
     context_object_name = 'products'
     template_name = "items.html"
@@ -50,6 +50,7 @@ class ProductUpdateView(UpdateView):
         return reverse('merchstore:item', args=[self.object.pk])
     
 class ProductTypeCreateView(CreateView):
+    """A view for creating new product type. """
     model = ProductType
     template_name = 'add_product_type.html'
     form_class = ProductTypeForm
