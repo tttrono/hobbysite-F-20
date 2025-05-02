@@ -42,6 +42,6 @@ class CommissionUpdateView(UpdateView):
     form_class = CommissionForm
     
     def get_success_url(self):
-        return reverse_lazy('commissions:detail', kwargs={'pk': self.object.pk})
+        return reverse('commissions:detail', args=[self.object.pk])
     
     
