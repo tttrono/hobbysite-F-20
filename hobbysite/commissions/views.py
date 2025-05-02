@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
@@ -29,6 +29,7 @@ def detail(request, pk):
     return render(request, "commission_detail.html", context)
 
 class CommissionCreateView(CreateView):
+    """A view for creating a new commission. """
     model = Commission
     template_name = 'commission_add.html'
     form_class = CommissionForm
@@ -37,6 +38,7 @@ class CommissionCreateView(CreateView):
         return reverse('commissions:list')
     
 class CommissionUpdateView(UpdateView):
+    """A view for updating a commission. """
     model = Commission
     template_name = 'commission_edit.html'
     form_class = CommissionForm
