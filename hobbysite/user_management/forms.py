@@ -6,4 +6,3 @@ class ProfileUpdateForm(ModelForm):
         model = Profile
         exclude=['user']
 
-        

@@ -13,7 +13,7 @@ from .models import Profile
 # class ProfileDetailView(DetailView):
 #     model = Profile
 #     template_name = 'profile_detail.html'
-  
+ 
 class ProfileUpdateView(UpdateView):
     model = User
     form_class = ProfileUpdateForm
@@ -45,3 +45,4 @@ class ProfileUpdateView(UpdateView):
 #     }
 #
 #     return render(request, "profile_update.html", context)
+
