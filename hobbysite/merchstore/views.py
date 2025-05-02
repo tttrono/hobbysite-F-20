@@ -38,8 +38,7 @@ class ProductCreateView(CreateView):
     form_class = ProductForm
     
     def get_success_url(self):
-        #return reverse('items')
-        return reverse_lazy('merchstore:items')
+        return reverse('merchstore:items')
     
 class ProductUpdateView(UpdateView):
     """A view for updating a product. """
@@ -48,8 +47,7 @@ class ProductUpdateView(UpdateView):
     form_class = ProductForm
     
     def get_success_url(self):
-        #return reverse('items')
-        return reverse_lazy('merchstore:item', kwargs={'pk': self.object.pk})
+        return reverse('merchstore:item', args=[self.object.pk])
     
 class ProductTypeCreateView(CreateView):
     model = ProductType
@@ -57,8 +55,6 @@ class ProductTypeCreateView(CreateView):
     form_class = ProductTypeForm
     
     def get_success_url(self):
-        #return reverse('items')
-        return reverse_lazy('merchstore:items')
-        #return reverse_lazy('merchstore:add')
-        #return CreateView.get_success_url(self)
+        return reverse('merchstore:items')
+
     
