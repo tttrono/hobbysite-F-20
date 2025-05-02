@@ -10,10 +10,24 @@ from django.views.generic.edit import CreateView, UpdateView
 from .forms import SignupForm, ProfileUpdateForm
 from .models import Profile
 
+class SignupView(CreateView):
+    model = User
+    form_class = SignupForm
+    template_name = 'signup.html'
+    success_url = reverse_lazy('home')
+    
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user) # auto-login once signed up
+        return redirect(self.success_url)
+    
+    # def get_success_url(self):
+    #      return reverse('home')
+
 # class ProfileDetailView(DetailView):
 #     model = Profile
 #     template_name = 'profile_detail.html'
- 
+  
 class ProfileUpdateView(UpdateView):
     model = User
     form_class = ProfileUpdateForm

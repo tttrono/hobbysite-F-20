@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} Login {% endblock title %}
 
 {% block content %}
@@ -9,7 +10,8 @@
 		{{ form.as_p }}
 		<button type="submit">Login</button>
 	</form>	
-	<a href="{% url 'password_reset' %}"> Forgot your password? </a>
+	<a href="{% url 'password_reset' %}"> Forgot your password? </a> <br>
+	Don't have an account? <a href="{% url 'profile:signup' %}"> Sign up </a>
 	
 {% endblock %}
 
