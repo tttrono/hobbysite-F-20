@@ -5,14 +5,16 @@
 
 {% block content %}
 
-	<div class="content" style="width:400px;"> <br>
+	<div class="content" style="width:400px;">
 		<h3>Login</h3>
+		
 		<form method="POST">
 			{% csrf_token %}
 			<!--{{form.as_p}}-->
-			{% bootstrap_form form %}
+			{% bootstrap_form form set_placeholder=False %}
 			<button type="submit">Login</button>   
 		</form>	
+		
 		<a href="{% url 'password_reset' %}"> Forgot your password? </a>
 		<br> Don't have an account? <a href="{% url 'profile:signup' %}"> Sign up </a>
 	</div>
