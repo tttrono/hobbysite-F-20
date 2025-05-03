@@ -1,21 +1,24 @@
-<html>
-    <head>
-        <title> Commissions </title>
-    </head>
-    <body>
+{% extends 'base.html' %}
+
+{% block title %} Add a commission {% endblock title %}
+
+{% block content%}
+		
+	<div class="content">
         <h2> Commissions </h2>
         <ul>
 			{% if commissions %}
 				{% for commission in commissions %}
 	                <a href="{{ commission.get_absolute_url }}"> {{ commission.title }} </a> <br>
 					{{ commission.description }} <br> 
-					People required: {{ commission.people_required }}<br> <br>
+					People required: {{ commission.people_required }} <br><br>
 	            {% endfor %}
 			{% else %}
 				No commissions at this time.
 			{% endif %}
-			
-			<a href= "{% url 'commissions:add' %}" > Add a Commission </a> <br> <br>
+		
+			<a href= "{% url 'commissions:add' %}" > Add a Commission </a>
         </ul>
-    </body>
-</html>
+	</div>
+		
+{% endblock %}

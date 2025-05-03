@@ -1,8 +1,12 @@
-<html>
-    <head>
-        <title> {{ commission.title }} </title>
-    </head>
-    <body>
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %} Commission - {{ commission.title }} {% endblock title %}
+
+{% block content%}
+
+	<div class="content">
+		
 		<h3> {{ commission.title }} </h3>
 			 {{ commission.description }} <br> <br>
 		     People required: {{ commission.people_required }} <br>
@@ -21,5 +25,7 @@
 				No comments yet.
 			{% endif %}
         </ul>
-    </body>
-</html>
+		
+	</div>
+	
+{% endblock %}

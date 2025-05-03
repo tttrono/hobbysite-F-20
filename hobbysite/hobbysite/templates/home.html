@@ -1,16 +1,14 @@
-
 {% extends "base.html" %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
-	<br>
-	<ul>
-		<li><a href="/merchstore/items"> Merch store </a> </li>
-		<li><a href="/commissions/list"> Commissions </a> </li>
-	</ul>
-{% endblock %}
 
-{% block footer %}
-    {% include 'footer.html' %}
+	<div class="content">
+		<ul>
+			<li><a href="/merchstore/items"> Merchstore </a> </li>
+			<li><a href="/commissions/list"> Commissions </a> </li>
+		</ul>
+	</div>
+	
 {% endblock %}
