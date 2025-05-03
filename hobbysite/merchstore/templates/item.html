@@ -1,15 +1,20 @@
-<html>
-    <head>
-        <title> {{ product.name }} </title>
-    </head>
-    <body>
-        <h2> {{ product.name }} </h2>
+{% extends 'base.html' %}
+
+{% block title %} {{ product.product_type }} - {{ product.name }} {% endblock title %}
+
+{% block content %}
+	
+	<div class="content">
+
+        <h4> {{ product.name }} </h4>
         <ul>
 			{{ product.product_type }} <br>
-			{{ product.description }} <br> <br>
+			{{ product.description }} <br> 
 			{{ product.price }} <br>
-			<a href="{% url 'merchstore:update' pk=product.pk %}"> Update this product </a> 
+			<br><a href="{% url 'merchstore:update' pk=product.pk %}"> Update this product </a> 
 			
         </ul>
-    </body>
-</html>
+		
+	</div>
+	
+{% endblock %}

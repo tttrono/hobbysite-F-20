@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block title %} Add a Product Type {% endblock title %}
 
 {% block content%}
 
-    <h2> Add a Product Type </h2>
+	<div class="content">
+
+    	<h2> Add a Product Type </h2>
 		
 		<form method="POST">
 			{% csrf_token %}
-			{{ form.as_p }}
+			{% bootstrap_form form set_placeholder=False %}
 			<button type="submit"  class="button"> Add product type </button>
 		</form> 
-		<br>
+	
+	</div>
 
 {% endblock %}
