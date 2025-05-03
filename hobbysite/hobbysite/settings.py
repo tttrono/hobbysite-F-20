@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_bootstrap5',
     'merchstore',
     'commissions',
     'user_management'
@@ -126,7 +127,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR/'hobbysite/static',
+    os.path.join(BASE_DIR,'hobbysite/static'),
 ]
 
 # Default primary key field type

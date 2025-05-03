@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
 {% block title %} Profile {% endblock title %}
 
 {% block content %}
-	<br>
-	<form method="POST" action="">
-        {% csrf_token %} 
-        {{ form.as_p }}
-        <button type="submit"> Update </button>
-    </form>
+	
+	<div class="content" style="width:400px;"> <br>
+		<h3> Profile </h3>
+		<br>
+		<form method="POST" action="">
+	        {% csrf_token %} 
+	        {% bootstrap_form form %}
+	        <button type="submit"> Update </button>
+	    </form>
+	</div>
 	
 {% endblock %}
