@@ -19,7 +19,7 @@ class SignupView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user) # auto-login once signed up
-        return redirect(self.success_url)
+        return reverse(self.success_url)
     
     # def get_success_url(self):
     #      return reverse('home')
@@ -29,7 +29,7 @@ class SignupView(CreateView):
 #     template_name = 'profile_detail.html'
   
 class ProfileUpdateView(UpdateView):
-    model = User
+    model = Profile
     form_class = ProfileUpdateForm
     template_name = 'profile_update.html'
     
