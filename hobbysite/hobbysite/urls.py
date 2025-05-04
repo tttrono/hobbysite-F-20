@@ -26,5 +26,5 @@ urlpatterns = [
     path('signup/', SignupView.as_view() , name='signup'),
     path('', include('merchstore.urls', namespace='merchstore')),
     path('', include('commissions.urls', namespace='commissions')),
-    path('', include('user_management.urls', namespace='profile')),
+    path('profile/', include('user_management.urls', namespace='profile')),
 ]
