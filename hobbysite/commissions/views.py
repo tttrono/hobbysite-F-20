@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
@@ -28,7 +29,7 @@ def detail(request, pk):
             
     return render(request, "commission_detail.html", context)
 
-class CommissionCreateView(CreateView):
+class CommissionCreateView(LoginRequiredMixin, CreateView):
     """A view for creating a new commission. """
     model = Commission
     template_name = 'commission_add.html'
@@ -37,7 +38,7 @@ class CommissionCreateView(CreateView):
     def get_success_url(self):
         return reverse('commissions:list')
     
-class CommissionUpdateView(UpdateView):
+class CommissionUpdateView(LoginRequiredMixin, UpdateView):
     """A view for updating a commission. """
     model = Commission
     template_name = 'commission_edit.html'
