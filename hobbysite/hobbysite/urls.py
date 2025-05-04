@@ -20,11 +20,10 @@ from django.urls import path, include
 from .views import *
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('', HomePageView.as_view, name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/', SignupView.as_view() , name='signup'),
-    path('', include('merchstore.urls', namespace='merchstore')),
     path('', include('commissions.urls', namespace='commissions')),
+    path('', include('merchstore.urls', namespace='merchstore')),
     path('profile/', include('user_management.urls', namespace='profile')),
 ]

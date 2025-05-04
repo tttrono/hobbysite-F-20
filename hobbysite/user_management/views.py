@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
-from .forms import ProfileUpdateForm
+from .forms import ProfileUpdateForm, SignupForm
 from .models import Profile
 
 class SignupView(CreateView):
