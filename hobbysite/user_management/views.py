@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
-from .forms import SignupForm, ProfileUpdateForm
+from .forms import ProfileUpdateForm
 from .models import Profile
 
 class SignupView(CreateView):
@@ -32,5 +32,4 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_success_url(self):
         return reverse('home')
-
 
