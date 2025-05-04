@@ -8,8 +8,7 @@
 	<div class="content">
 		
 		<h3> {{ commission.title }} </h3>
-			 {{ commission.description }} <br> <br>
-		     People required: {{ commission.people_required }} <br>
+			 {{ commission.description }} <br>
 			 Updated on: {{ commission.updated_on }} <br> <br>
 			 
 			 <a href="{% url 'commissions:edit' pk=commission.pk %}"> Update this commission </a> <br><br> 

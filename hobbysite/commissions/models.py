@@ -8,7 +8,22 @@ class Commission(models.Model):
     """A model for commissions."""
     title = models.CharField(max_length=255, unique=True)
     description = models.TextField()
-    people_required = models.PositiveIntegerField()
+    
+    class Status(models.TextChoices):
+        OPEN = 'open', 'Open'
+        FULL = 'full', 'Full'
+        COMPLETED = 'completed', 'Completed'
+        DISCONTINUED = 'discontinued', 'Discontinued'
+        
+    # STATUS_OPTIONS = (
+    #     ('open', 'Open'),
+    #     ('full', 'Full'),
+    #     ('completed', 'Completed'),
+    #     ('discontinued', 'Discontinued'),
+    # )
+    # status = models.CharField(max_length=20,choices=STATUS_OPTIONS, default='open')
+    
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.OPEN)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
@@ -20,7 +35,7 @@ class Commission(models.Model):
         return self.title
     
     def get_absolute_url(self):
-         return reverse('commissions:detail', args=[self.id])
+         return reverse('commissions:detail', args=[self.pk])
 
 class Comment(models.Model):
     """A model for comments on commissions."""

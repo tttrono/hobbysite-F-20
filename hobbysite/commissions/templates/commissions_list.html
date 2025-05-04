@@ -10,8 +10,7 @@
 			{% if commissions %}
 				{% for commission in commissions %}
 	                <a href="{{ commission.get_absolute_url }}"> {{ commission.title }} </a> <br>
-					{{ commission.description }} <br> 
-					People required: {{ commission.people_required }} <br><br>
+					{{ commission.description }} <br><br>
 	            {% endfor %}
 			{% else %}
 				No commissions at this time.
