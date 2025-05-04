@@ -10,14 +10,14 @@
 		
 		<form method="POST">
 			{% csrf_token %}
-			<!--{{form.as_p}}-->
 			{% bootstrap_form form set_placeholder=False %}
 			<button type="submit">Login</button>   
 		</form>	
 		
 		<a href="{% url 'password_reset' %}"> Forgot your password? </a>
-		<br> Don't have an account? <a href="{% url 'signup' %}"> Sign up </a>
+		<br> Don't have an account? <a href="{% url 'profile:signup' %}"> Sign up </a>
 	</div>
+	
 {% endblock %}
 
 
