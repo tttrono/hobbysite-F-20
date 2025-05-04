@@ -5,4 +5,5 @@ class UserManagementConfig(AppConfig):
     name = 'user_management'
     
     def ready(self):
+        """Configure signals for user management. """
         import user_management.signals
