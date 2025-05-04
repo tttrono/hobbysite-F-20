@@ -20,7 +20,7 @@ from django.urls import path, include
 from .views import *
 
 urlpatterns = [
-    path('', HomePageView.as_view, name='home'),
+    path('', HomePageView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 	path('', include('commissions.urls', namespace='commissions')),
