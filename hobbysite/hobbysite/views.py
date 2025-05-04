@@ -5,3 +5,4 @@ from . import templates
 
 def home(request):
     return render(request, "home.html", context=None)
+user_management
