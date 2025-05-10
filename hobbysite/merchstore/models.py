@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from enum import unique
@@ -17,7 +18,7 @@ class ProductType(models.Model):
         return self.name
 
 class Product(models.Model):
-    """A model for products in the merch store."""
+    """A model for products in the merchstore."""
     name = models.CharField(max_length=255, unique=True)
     product_type = models.ForeignKey(ProductType, null=True, on_delete=models.SET_NULL, related_name='product')
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='product')

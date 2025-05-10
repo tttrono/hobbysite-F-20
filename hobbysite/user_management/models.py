@@ -9,7 +9,7 @@ class Profile(models.Model):
     display_name = models.CharField(max_length=63, blank=True)
     email = models.EmailField(max_length=254, blank=True)
     
-    def _str_(self):
+    def __str__(self):
         return self.display_name
     
     def get_absolute_url(self):
