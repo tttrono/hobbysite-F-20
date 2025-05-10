@@ -13,7 +13,7 @@
 					{{ commission.description }} <br><br>
 	            {% endfor %}
 			{% else %}
-				No commissions at this time.
+				No commissions at this time. <br>
 			{% endif %}
 		
 			<a href= "{% url 'commissions:add' %}" > Add a Commission </a>
