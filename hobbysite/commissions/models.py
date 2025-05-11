@@ -28,6 +28,27 @@ class Commission(models.Model):
     
     def get_absolute_url(self):
          return reverse('commissions:detail', args=[self.pk])
+     
+class Job(models.Model):
+    """A model for job."""
+    commission = models.ForeignKey(Commission, null=False, on_delete=models.CASCADE)
+    role = models.CharField(max_length=255)
+    manpower_required = models.IntegerField()
+    
+    class Status(models.TextChoices):
+        OPEN = 'open', 'Open'
+        FULL = 'full', 'Full'
+    
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.OPEN)
 
+    class Meta:
+        verbose_name_plural = 'Jobs'
+        ordering = ['-status','-manpower_required','role']
+        
+    def __str__(self):
+        return f"{self.role} for {self.commission.title}"
+    
+    # def get_absolute_url(self):
+    #      return reverse('commissions:detail', args=[self.pk]) // for job
 
 
