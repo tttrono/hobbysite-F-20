@@ -13,21 +13,21 @@
 			 Updated on: {{ commission.updated_on }} <br> <br>
 			 
 			 <a href="{% url 'commissions:edit' pk=commission.pk %}"> Update this commission </a> <br> 
-			 or <a href="{% url 'commissions:job-add' pk=commission.pk %}"> Add a job </a> <br><br>
+			 or <a href="{% url 'commissions:job-add' pk=commission.pk %}"> Add a job </a> 
 			 
-		 <b> Jobs </b>
+		<div class="content">
+		 	<b> Jobs </b> 
 			 
 			{% if jobs %}
+				
  				{% for job in jobs %}
-					<ul>
-					{% if job.commission == commission %}
-		                <li> {{ job.role }} </li> 
-					{% endif %}
- 					</ul>
+		          	 <br> {{ job.role }} 
  				{% endfor %}
+				
  			{% else %}
- 				No jobs yet. <br>
+				<br> No jobs yet. 
  			{% endif %}
+		</div>
 		
 	</div>
 	

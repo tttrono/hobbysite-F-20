@@ -27,8 +27,10 @@ class CommissionDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(CommissionDetailView, self).get_context_data(**kwargs)
+        commission = Commission.objects.get(pk=self.kwargs.get('pk'))
+        
         context.update({
-            'jobs': Job.objects.all(),
+            'jobs': Job.objects.filter(commission=commission),
             #'more_context': Model.objects.all(),
         })
         return context
@@ -62,6 +64,7 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
     
 @login_required
 def create_job(request, pk):
+    """ A function-based view to create a job. """
     commission = Commission.objects.get(pk=pk)
     
     if request.method == 'POST':
