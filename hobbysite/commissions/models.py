@@ -1,13 +1,14 @@
 from django.db import models
-
-from django.db import models
 from django.urls import reverse
 from enum import unique
+
+from user_management.models import Profile
 
 class Commission(models.Model):
     """A model for commissions."""
     title = models.CharField(max_length=255, unique=True)
     description = models.TextField()
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='commission')
     
     class Status(models.TextChoices):
          OPEN = 'open', 'Open'
@@ -49,6 +50,6 @@ class Job(models.Model):
         return f"{self.role} for {self.commission.title}"
     
     # def get_absolute_url(self):
-    #      return reverse('commissions:detail', args=[self.pk]) // for job
+    #      return reverse('commissions:detail', args=[self.pk])
 
 
