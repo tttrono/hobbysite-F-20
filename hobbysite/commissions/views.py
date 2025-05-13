@@ -18,6 +18,17 @@ class CommissionListView(ListView):
     model = Commission
     context_object_name = 'commissions'
     template_name = "commissions_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super(CommissionListView, self).get_context_data(**kwargs)
+        
+        context.update({
+            'open_commissions': Commission.objects.filter(status=Commission.Status.OPEN),
+            'full_commissions': Commission.objects.filter(status=Commission.Status.FULL),
+            'completed_commissions': Commission.objects.filter(status=Commission.Status.COMPLETED),
+            'discontinued_commissions': Commission.objects.filter(status=Commission.Status.DISCONTINUED),
+        })
+        return context
 
 class CommissionDetailView(DetailView):
     """A detail view for commission. """
@@ -31,7 +42,6 @@ class CommissionDetailView(DetailView):
         
         context.update({
             'jobs': Job.objects.filter(commission=commission),
-            #'more_context': Model.objects.all(),
         })
         return context
 

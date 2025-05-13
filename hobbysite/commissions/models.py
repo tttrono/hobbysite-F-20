@@ -10,10 +10,10 @@ class Commission(models.Model):
     description = models.TextField()
     
     class Status(models.TextChoices):
-        OPEN = 'open', 'Open'
-        FULL = 'full', 'Full'
-        COMPLETED = 'completed', 'Completed'
-        DISCONTINUED = 'discontinued', 'Discontinued'
+         OPEN = 'open', 'Open'
+         FULL = 'full', 'Full'
+         COMPLETED = 'completed', 'Completed'
+         DISCONTINUED = 'discontinued', 'Discontinued'
     
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.OPEN)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -21,7 +21,7 @@ class Commission(models.Model):
     
     class Meta:
         verbose_name_plural = 'Commissions'
-        ordering = ['created_on']
+        ordering = ['-created_on']
         
     def __str__(self):
         return self.title
@@ -33,7 +33,7 @@ class Job(models.Model):
     """A model for job."""
     commission = models.ForeignKey(Commission, null=False, on_delete=models.CASCADE)
     role = models.CharField(max_length=255)
-    manpower_required = models.IntegerField()
+    manpower_required = models.PositiveIntegerField()
     
     class Status(models.TextChoices):
         OPEN = 'open', 'Open'
