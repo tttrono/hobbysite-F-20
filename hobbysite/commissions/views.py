@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
+from django.urls.base import reverse_lazy
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
@@ -11,7 +12,8 @@ from django.views.generic.list import ListView
 from . import templates
 from .forms import CommissionForm, JobForm
 from .models import Commission, Job
-from django.urls.base import reverse_lazy
+
+from user_management.models import Profile
 
 class CommissionListView(ListView):
     """A view for commissions as list."""
@@ -19,10 +21,19 @@ class CommissionListView(ListView):
     context_object_name = 'commissions'
     template_name = "commissions_list.html"
     
+
+    
     def get_context_data(self, **kwargs):
         context = super(CommissionListView, self).get_context_data(**kwargs)
         
+        if self.request.user.is_authenticated:
+            author = Profile.objects.get(user=self.request.user)
+        else:
+            author = None
+        
         context.update({
+            'commissions_created': Commission.objects.filter(author=author),
+            
             'open_commissions': Commission.objects.filter(status=Commission.Status.OPEN),
             'full_commissions': Commission.objects.filter(status=Commission.Status.FULL),
             'completed_commissions': Commission.objects.filter(status=Commission.Status.COMPLETED),
@@ -50,6 +61,10 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
     model = Commission
     template_name = 'commission_add.html'
     form_class = CommissionForm
+    
+    def form_valid(self, form):
+        form.instance.author = Profile.objects.get(user=self.request.user)
+        return super().form_valid(form)
     
     def get_success_url(self):
         return reverse('commissions:list')

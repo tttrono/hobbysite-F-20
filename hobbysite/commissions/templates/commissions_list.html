@@ -6,30 +6,47 @@
 		
 	<div class="content">
         <h2> Commissions </h2>
-        <ul>
-			{% if commissions %}
-				{% for commission in open_commissions %}
-		           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
-					{{ commission.description }} <br><br>
-	            {% endfor %}
-				{% for commission in full_commissions %}
-		           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
-					{{ commission.description }} <br><br>
-	            {% endfor %}
-				{% for commission in completed_commissions %}
-		           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
-					{{ commission.description }} <br><br>
-	            {% endfor %}
-				{% for commission in discontinued_commissions %}
-		           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
-					{{ commission.description }} <br><br>
-	            {% endfor %}
-			{% else %}
-				No commissions at this time. <br>
+		<ul>
+			 {% if user.is_authenticated %}
+				<b> Commissions created </b>
+				<ul>
+					{% if commissions_created %}
+						{% for commission in commissions_created %}
+				           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+							{{ commission.description }} <br><br>
+			            {% endfor %}
+					{% else %}
+						No commissions created yet. <br>
+						<a href= "{% url 'commissions:add' %}" > Add a Commission </a> <br><br>
+					{% endif %}
+				</ul>
 			{% endif %}
-		
-			<a href= "{% url 'commissions:add' %}" > Add a Commission </a>
-        </ul>
+			
+			<b> All Commissions </b>
+	        <ul>
+				{% if commissions %}
+					{% for commission in open_commissions %}
+			           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+						{{ commission.description }} <br><br>
+		            {% endfor %}
+					{% for commission in full_commissions %}
+			           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+						{{ commission.description }} <br><br>
+		            {% endfor %}
+					{% for commission in completed_commissions %}
+			           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+						{{ commission.description }} <br><br>
+		            {% endfor %}
+					{% for commission in discontinued_commissions %}
+			           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+						{{ commission.description }} <br><br>
+		            {% endfor %}
+				{% else %}
+					No commissions at this time. <br><br>
+				{% endif %}
+			
+	        </ul>
+		</ul>
 	</div>
 		
 {% endblock %}
