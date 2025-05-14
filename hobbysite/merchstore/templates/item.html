@@ -14,17 +14,22 @@
 			{{ product.price }} <br>
 			{{ product.stock }} <br>
 			{{ product.status }} <br>
-			<a href="{% url 'merchstore:update' pk=product.pk %}"> Update this product </a> 
+			
+			{% if product.owner == logged_user %}
+				<a href="{% url 'merchstore:update' pk=product.pk %}"> Update this product </a> 
+			{% endif %}
         </ul>
 		
-		<div class="content" style="width:800px;">
-			<h5> Buy this product </h5>
-			<form method="POST">
-				{% csrf_token %}
-				{% bootstrap_form form set_placeholder=False %}
-				<button type="submit" class="button"> Place order </button>
-			</form>
-		</div>
+		{% if product.owner != logged_user %}
+			<div class="content" style="width:800px;">
+				<h5> Buy this product </h5>
+				<form method="POST">
+					{% csrf_token %}
+					{% bootstrap_form form set_placeholder=False %}
+					<button type="submit" class="button"> Place order </button>
+				</form>
+			</div>
+		{% endif %}
 		
 	</div>
 	
