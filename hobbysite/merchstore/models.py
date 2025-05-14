@@ -5,6 +5,7 @@ from enum import unique
 
 from user_management.models import Profile
 from django.db.models.deletion import CASCADE
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class ProductType(models.Model):
     """A model for product types or categories."""
@@ -44,16 +45,16 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('merchstore:item', args=[self.pk])
     
-class Transaction(models.Model):
+class Transaction(LoginRequiredMixin, models.Model):
     buyer = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL, related_name='transaction')
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, related_name='transaction')
     amount = models.IntegerField()
     
     class Status(models.TextChoices):
-        ON_CART = 'on_cart', 'On Cart'
-        TO_PAY = 'to_pay', 'To Pay'
-        TO_SHIP = 'to_ship', 'To Ship'
-        TO_RECEIVE = 'to_receive', 'To Receive'
+        ON_CART = 'on cart', 'On Cart'
+        TO_PAY = 'to pay', 'To Pay'
+        TO_SHIP = 'to ship', 'To Ship'
+        TO_RECEIVE = 'to receive', 'To Receive'
         DELIVERED = 'delivered', 'Delivered'
     
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.ON_CART)

@@ -11,7 +11,7 @@ from django.views.generic.list import ListView
 
 from . import templates
 from .forms import ProductForm, ProductTypeForm, TransactionForm
-from .models import Product, ProductType
+from .models import Product, ProductType, Transaction
 
 from user_management.models import Profile
 
@@ -97,5 +97,24 @@ class ProductTypeCreateView(LoginRequiredMixin, CreateView):
     
     def get_success_url(self):
         return reverse('merchstore:items')
-
+    
+class TransactionListView(LoginRequiredMixin, ListView):
+    """A view listing all transactions of a user. """
+    model = Transaction
+    context_object_name = 'transactions'
+    template_name = 'transactions.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(TransactionListView, self).get_context_data(**kwargs)     
+        
+        seller = Profile.objects.get(user=self.request.user)
+        seller_items = Product.objects.filter(owner=seller)
+        seller_transactions = Transaction.objects.filter(product__in=seller_items)
+        buyers_all = Profile.objects.all()
+        
+        context.update({
+            'seller_transactions': seller_transactions.order_by('buyer'),
+            'buyers_all': buyers_all, 
+        })
+        return context
     
