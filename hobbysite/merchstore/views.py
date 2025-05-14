@@ -64,31 +64,19 @@ class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
     
+    
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    """A view for creating a new product. """
+    model = Product
+    template_name = 'item_add.html'
+    form_class = ProductForm
 
-# class ProductCreateView(LoginRequiredMixin, CreateView):
-#     """A view for creating a new product. """
-#     model = Product
-#     template_name = 'item_add.html'
-#     form_class = ProductForm
-#
-#     def get_success_url(self):
-#         return reverse('merchstore:items')
-    
-@login_required
-def create_product(request):
-    owner = Profile.objects.get(user=request.user)
-    
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.owner = owner
-            product.save()
-            return redirect('merchstore:items') 
-    else:
-        form = ProductForm()
-        
-    return render(request, 'item_add.html', {'form': form})
+    def form_valid(self, form):
+        form.instance.owner = Profile.objects.get(user=self.request.user)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('merchstore:items')
 
     
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
