@@ -1,10 +1,10 @@
 from django.conf import settings
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
 from enum import unique
 
 from user_management.models import Profile
-from django.db.models.deletion import CASCADE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class ProductType(models.Model):
@@ -30,8 +30,8 @@ class Product(models.Model):
     
     class Status(models.TextChoices):
         AVAILABLE = 'available', 'Available'
-        ON_SALE = 'on_sale', 'On Sale'
-        OUT_OF_STOCK = 'out_of_stock', 'Out of Stock'
+        ON_SALE = 'on sale', 'On Sale'
+        OUT_OF_STOCK = 'out of stock', 'Out of Stock'
     
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.AVAILABLE)
     
@@ -48,7 +48,7 @@ class Product(models.Model):
 class Transaction(LoginRequiredMixin, models.Model):
     buyer = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL, related_name='transaction')
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, related_name='transaction')
-    amount = models.IntegerField()
+    amount = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     
     class Status(models.TextChoices):
         ON_CART = 'on cart', 'On Cart'

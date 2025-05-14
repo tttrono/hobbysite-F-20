@@ -1,5 +1,6 @@
 from django import template
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -49,18 +50,44 @@ class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
     def post(self, request, *args, **kwargs):
         buyer = Profile.objects.get(user=request.user)
         product = Product.objects.get(pk=self.kwargs.get('pk'))
-        
         self.object = self.get_object()
         form = self.get_form()
-       
+        
+        ctx = self.get_context_data(**kwargs)
+        ctx["errors"] = {}
+        
+        # amount = form.PositiveIntegerField(validators=[MaxValueValidator(product.stock)],
+        # help_text="Only %s stock/s left" % (product.stock))
+        
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.buyer = buyer
             transaction.product = product
+            
+            if product.stock < transaction.amount:
+                ctx["errors"]["overbuy"] = True
+                return render(request, self.template_name, context=ctx)
+            
+            product.stock = product.stock - transaction.amount
+            transaction.status = Transaction.Status.ON_CART
+            
+            if product.stock == 0:
+                product.status = Product.Status.OUT_OF_STOCK
+            
+            product.save()
+            
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
-
+        
+    def clean_amount(self):
+        amount = self.cleaned_data['amount']
+        product = Product.objects.get(pk=self.kwargs.get('pk'))
+        
+        if amount > product.stock:
+            raise ValueError("Quantity greater than stock.")
+        return amount
+    
     def form_valid(self, form):
         form.save()
         return redirect(reverse('merchstore:cart'))
