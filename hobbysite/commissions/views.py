@@ -21,8 +21,6 @@ class CommissionListView(ListView):
     context_object_name = 'commissions'
     template_name = "commissions_list.html"
     
-
-    
     def get_context_data(self, **kwargs):
         context = super(CommissionListView, self).get_context_data(**kwargs)
         
@@ -78,31 +76,21 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('commissions:detail', args=[self.object.pk])
     
-# class JobCreateView(CreateView):
-#     """A view for creating a job. """
-#     model = Job
-#     template_name = 'job_add.html'
-#     form_class = JobForm
-#
-#     def get_success_url(self):
-#         return reverse('commissions:detail', args=[self.object.pk])
+class JobCreateView(LoginRequiredMixin, CreateView):
+    """A view for creating a job. """
+    model = Job
+    template_name = 'job_add.html'
+    form_class = JobForm
+
+    def form_valid(self, form):
+        form.instance.commission = Commission.objects.get(pk=self.kwargs.get('pk'))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('commissions:detail', args=[self.object.pk])
     
-@login_required
-def create_job(request, pk):
-    """ A function-based view to create a job. """
-    commission = Commission.objects.get(pk=pk)
-    
-    if request.method == 'POST':
-        form = JobForm(request.POST)
-        if form.is_valid():
-            job = form.save(commit=False)
-            job.commission = commission
-            job.save()
-            return redirect('commissions:detail', args=[self.object.commission.pk])
-    else:
-        form = JobForm()
-        
-    return render(request, 'job_add.html', {'form': form})
+
+
     
     
     
