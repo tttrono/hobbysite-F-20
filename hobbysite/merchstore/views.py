@@ -58,8 +58,7 @@ class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
 
     def form_valid(self, form):
         form.save()
-        return redirect(reverse('merchstore:item', kwargs={'pk': self.object.pk}))
-        # REDIRECT TO CARTVIEW
+        return redirect(reverse('merchstore:cart'))
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
@@ -98,8 +97,27 @@ class ProductTypeCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('merchstore:items')
     
+class CartView(LoginRequiredMixin, ListView):
+    """A view listing all buyer transactions of the logged-in user. """
+    model = Transaction
+    context_object_name = 'transactions'
+    template_name = 'cart.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(CartView, self).get_context_data(**kwargs)     
+        
+        buyer = Profile.objects.get(user=self.request.user)
+        buyer_transactions = Transaction.objects.filter(buyer=buyer)
+        #sellers_all = Profile.objects.all()
+        
+        context.update({
+            'buyer_transactions': buyer_transactions.order_by('product__owner'),
+            #'sellers_all': sellers_all, 
+        })
+        return context
+    
 class TransactionListView(LoginRequiredMixin, ListView):
-    """A view listing all transactions of a user. """
+    """A view listing all seller transactions of the logged-in user. """
     model = Transaction
     context_object_name = 'transactions'
     template_name = 'transactions.html'

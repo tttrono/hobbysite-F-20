@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Transactions {% endblock title %}
+
+{% block content%}
+		
+	<div class="content">
+		
+        <h2> Cart </h2>
+		<ul>
+			{% if buyer_transactions %}
+				{% for transaction in buyer_transactions %}
+					{{ transaction.product.owner }} | <a href="{{ transaction.product.get_absolute_url }}"> {{ transaction.product }} </a> | {{ transaction.amount }} | {{ transaction.status }} | {{ transaction.created_on }} <br>
+				{% endfor %}
+			{% else %}
+				No transactions yet. <br>
+			{% endif %}
+			
+        </ul>
+
+	</div>
+	
+{% endblock %}
