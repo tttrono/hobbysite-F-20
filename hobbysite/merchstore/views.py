@@ -24,8 +24,11 @@ class ProductListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
+        profile = Profile.objects.get(user=self.request.user)
         context.update({
             'product_types': ProductType.objects.order_by('name'),
+            'seller_products': Product.objects.filter(owner=profile),
+            'other_products': Product.objects.exclude(owner=profile),
             #'more_context': Model.objects.all(),
         })
         return context
@@ -115,6 +118,27 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = 'item_update.html'
     form_class = ProductForm
+    
+    def post(self, request, *args, **kwargs):
+        product = Product.objects.get(pk=self.kwargs.get('pk'))
+        self.object = self.get_object()
+        form = self.get_form()
+        
+        if form.is_valid():
+            product = form.save(commit=False)
+
+            if product.stock == 0:
+                product.status = Product.Status.OUT_OF_STOCK
+            
+            product.save()
+            
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+    
+    def form_valid(self, form):
+        form.instance.owner = Profile.objects.get(user=self.request.user)
+        return super().form_valid(form)
     
     def get_success_url(self):
         return reverse('merchstore:item', args=[self.object.pk])

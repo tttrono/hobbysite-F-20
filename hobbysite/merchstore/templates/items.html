@@ -7,19 +7,41 @@
 	<div class="content">
 		
         <h2> Products </h2>
+		
 		<ul>
-			{% if products %}
-				{% for type in product_types %}
-					<b> {{ type }} </b> <br> 
-					<ul>
-						{% for product in products %}
-							{% if product.product_type == type %}
-			                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
-							{% endif %}
-						{% endfor %}
-					</ul>
-					
-				{% endfor %}
+			{% if seller_products %}
+				<h5> Your Products </h5>
+				<ul>
+					{% for type in product_types %}
+						<b> {{ type }} </b> <br> 
+						<ul>
+							{% for product in seller_products %}
+								{% if product.product_type == type %}
+				                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
+								{% endif %}
+							{% endfor %}
+						</ul>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</ul>
+		
+		<ul>
+			{% if other_products %}
+				<h5> All Products </h5>
+				<ul>
+					{% for type in product_types %}
+						<b> {{ type }} </b> <br> 
+						<ul>
+							{% for product in other_products %}
+								{% if product.product_type == type %}
+				                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
+								{% endif %}
+							{% endfor %}
+						</ul>
+						
+					{% endfor %}
+				</ul>
 			{% else %}
 				No products at the moment. <br>
 			{% endif %}
