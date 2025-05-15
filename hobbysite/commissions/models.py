@@ -52,6 +52,7 @@ class Job(models.Model):
     # def get_absolute_url(self):
     #      return reverse('commissions:detail', args=[self.pk])
 
+
 class JobApplication(models.Model):
     """A model for job application. """
     job = models.ForeignKey(Job, on_delete=models.CASCADE)

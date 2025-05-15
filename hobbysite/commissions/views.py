@@ -21,12 +21,14 @@ class CommissionListView(ListView):
     context_object_name = 'commissions'
     template_name = "commissions_list.html"
     
+
+    
     def get_context_data(self, **kwargs):
         context = super(CommissionListView, self).get_context_data(**kwargs)
         
         if self.request.user.is_authenticated:
             author = Profile.objects.get(user=self.request.user)
-            
+
             profile = Profile.objects.get(user=self.request.user)
             job_applications = JobApplication.objects.filter(applicant=profile)
             jobs_applied = Job.objects.filter(jobapplication__in=job_applications)
