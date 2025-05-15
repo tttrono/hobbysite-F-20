@@ -11,24 +11,55 @@
 			 {{ commission.description }} <br>
 			 {{ commission.status }} <br>
 			 Updated on: {{ commission.updated_on }} <br> <br>
-			 
-			 <a href="{% url 'commissions:edit' pk=commission.pk %}"> Update this commission </a> <br> 
-			 or <a href="{% url 'commissions:job-add' pk=commission.pk %}"> Add a job </a> 
-			 
-		<div class="content">
-		 	<b> Jobs </b> 
+
+			 {% if commission.author == logged_user %}
+			 	<a href="{% url 'commissions:edit' pk=commission.pk %}"> Update this commission </a> <br> 
+			 	or <a href="{% url 'commissions:job-add' pk=commission.pk %}"> Add a job </a> 
+			 {% endif %}
 			 
 			{% if jobs %}
-				
- 				{% for job in jobs %}
-		          	 <br> {{ job.role }} 
- 				{% endfor %}
-				
+				<div class="content">
+					<table class="table">
+						<thead>
+					    	<tr>
+								<th scope="col"> Jobs / Role </th>
+							    <th scope="col"> Manpower required </th>
+							    <th scope="col"> Status </th>
+								<th scope="col">  </th>
+					    	</tr>
+					  	</thead>
+						<tbody>
+			 				{% for job in jobs %}
+								<tr>
+						          	<td> {{ job.role }} 
+									<td> {{ job.manpower_required }} 
+									<td> {{ job.status }}
+									{% if user.is_authenticated and commission.author != logged_user %}
+										<td>
+											<form method="POST">
+					 							{% csrf_token %}
+					 							{% bootstrap_form form set_placeholder=False %}
+                        						<input type="hidden" name="job_pk" value="{{ job.pk }}">
+					 							<button type="submit" class="button" {% if job.manpower_required == 0 or job.status == 'full' or job in jobs_applied %} disabled {% endif %}> 
+												{% if job in jobs_applied %} 
+													Applied
+												{% else %}
+													Apply to Job
+												{% endif %} 
+												</button>
+					 						</form>
+								</tr>
+								{% endif %}
+			 				{% endfor %}
+							</tbody>
+						</table>
+				</div>
  			{% else %}
-				<br> No jobs yet. 
+				<div class="content">
+				 	<b> Jobs </b> 
+					 	<br> No jobs yet. 
+				</div>
  			{% endif %}
-		</div>
-		
 	</div>
 	
 {% endblock %}

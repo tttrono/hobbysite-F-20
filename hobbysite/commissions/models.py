@@ -32,7 +32,7 @@ class Commission(models.Model):
      
 class Job(models.Model):
     """A model for job."""
-    commission = models.ForeignKey(Commission, null=False, on_delete=models.CASCADE)
+    commission = models.ForeignKey(Commission, null=False, on_delete=models.CASCADE, related_name='jobs')
     role = models.CharField(max_length=255)
     manpower_required = models.PositiveIntegerField()
     
@@ -52,4 +52,20 @@ class Job(models.Model):
     # def get_absolute_url(self):
     #      return reverse('commissions:detail', args=[self.pk])
 
-
+class JobApplication(models.Model):
+    """A model for job application. """
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='applications')
+    
+    class Status(models.TextChoices):
+        PENDING = 'pending', 'Pending'
+        ACCEPTED = 'accepted', 'Accepted'
+        REJECTED = 'rejected', 'Rejected'
+        
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+    applied_on = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name_plural = 'Job Applications'
+        ordering = ['-applied_on']
+     

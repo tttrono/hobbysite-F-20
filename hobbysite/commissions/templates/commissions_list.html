@@ -17,12 +17,23 @@
 			            {% endfor %}
 					{% else %}
 						No commissions created yet. <br>
-						<a href= "{% url 'commissions:add' %}" > Add a Commission </a> <br><br>
+					{% endif %}
+					<a href= "{% url 'commissions:add' %}" > Add a Commission </a> <br><br>
+				</ul>
+				
+				<b> Commissions joined </b>
+				<ul>				
+					{% if commissions_joined %}
+						{% for commission in commissions_joined %}
+				           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> <br>
+			            {% endfor %} <br>
+					{% else %}
+						No commissions joined yet. <br>
 					{% endif %}
 				</ul>
 			{% endif %}
 			
-			<b> All Commissions </b>
+			<h4> All Commissions </h4>
 	        <ul>
 				{% if commissions %}
 					{% for commission in open_commissions %}
