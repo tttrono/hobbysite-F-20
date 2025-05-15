@@ -13,7 +13,7 @@
 			{{ product.description }} <br> 
 			{{ product.price }} <br>
 			{{ product.stock }} <br>
-			{{ product.status }} <br>
+			<span class="badge bg-warning text-dark"> {{ product.status }} </span>  <br>
 			
 			{% if product.owner == logged_user %}
 				<a href="{% url 'merchstore:update' pk=product.pk %}"> Update this product </a> 
