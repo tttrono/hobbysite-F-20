@@ -9,7 +9,7 @@
 		
 		<h3> {{ commission.title }} </h3>
 			 {{ commission.description }} <br>
-			 {{ commission.status }} <br>
+			 <span class="badge bg-success"> {{ commission.status }} </span> <br>
 			 Updated on: {{ commission.updated_on }} <br> <br>
 
 			 {% if commission.author == logged_user %}
@@ -33,7 +33,7 @@
 								<tr>
 						          	<td> {{ job.role }} 
 									<td> {{ job.manpower_required }} 
-									<td> {{ job.status }}
+									<td> <span class="badge bg-success"> {{ job.status }} </span>  
 									{% if user.is_authenticated and commission.author != logged_user %}
 										<td>
 											<form method="POST">
