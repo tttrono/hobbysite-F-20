@@ -59,21 +59,25 @@ class CommissionDetailView(FormMixin, DetailView):
         context = super(CommissionDetailView, self).get_context_data(**kwargs)
         commission = Commission.objects.get(pk=self.kwargs.get('pk'))
         
-        profile = Profile.objects.get(user=self.request.user)
-        job_applications = JobApplication.objects.filter(applicant=profile)
-        jobs_applied = Job.objects.filter(jobapplication__in=job_applications)
+        context.update({
+                'jobs': Job.objects.filter(commission=commission),
+        })
         
         if self.request.user.is_authenticated:
             logged_user = Profile.objects.get(user=self.request.user)
         else:
             logged_user = None
         
-        context.update({
-            'logged_user': logged_user,
-            'jobs': Job.objects.filter(commission=commission),
-            'jobs_applied': jobs_applied,
-            'job_applications': job_applications,
-        })
+        if self.request.user.is_authenticated:
+            profile = Profile.objects.get(user=self.request.user)
+            job_applications = JobApplication.objects.filter(applicant=profile)
+            jobs_applied = Job.objects.filter(jobapplication__in=job_applications)
+            
+            context.update({
+                'logged_user': logged_user,
+                'jobs_applied': jobs_applied,
+                'job_applications': job_applications,
+            })
         return context
     
     def post(self, request, pk):
