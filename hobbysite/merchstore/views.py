@@ -1,4 +1,5 @@
 from django import template
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse
@@ -24,16 +25,20 @@ class ProductListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
-        profile = Profile.objects.get(user=self.request.user)
+        
         context.update({
             'product_types': ProductType.objects.order_by('name'),
-            'seller_products': Product.objects.filter(owner=profile),
-            'other_products': Product.objects.exclude(owner=profile),
-            #'more_context': Model.objects.all(),
-        })
+        })    
+            
+        if self.request.user.is_authenticated:
+            profile = Profile.objects.get(user=self.request.user)  
+            context.update({
+                'seller_products': Product.objects.filter(owner=profile),
+                'other_products': Product.objects.exclude(owner=profile),
+            })
         return context
     
-class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
+class ProductDetailView(FormMixin, DetailView):
     """A detailed view for a product."""
     model = Product
     form_class = TransactionForm
@@ -43,18 +48,27 @@ class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = self.get_form()
-        logged_user = Profile.objects.get(user=self.request.user)
         
-        context.update({
-            'logged_user': logged_user,
-        })
+        if self.request.user.is_authenticated:
+            logged_user = Profile.objects.get(user=self.request.user)
+            
+            context.update({
+                'logged_user': logged_user,
+            })
         return context
 
     def post(self, request, *args, **kwargs):
-        buyer = Profile.objects.get(user=request.user)
-        product = Product.objects.get(pk=self.kwargs.get('pk'))
         self.object = self.get_object()
         form = self.get_form()
+        
+        product = Product.objects.get(pk=self.kwargs.get('pk'))
+        
+        if self.request.user.is_authenticated:
+            buyer = Profile.objects.get(user=request.user)
+        else:
+            reverse_url = reverse('merchstore:item', kwargs={'pk': product.pk})
+            return redirect("{}?next={}".format('/accounts/login/', reverse_url))
+                
         
         ctx = self.get_context_data(**kwargs)
         ctx["errors"] = {}
