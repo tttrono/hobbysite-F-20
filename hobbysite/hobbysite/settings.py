@@ -31,7 +31,7 @@ DEBUG = os.environ('DEBUG')
 #DATABASE_URL = os.getenv('DATABASE_URL')
 
 
-ALLOWED_HOSTS = ['hobbysite-f-20-g0gqa7acascyhed2.canadacentral-01.azurewebsites.net']
+ALLOWED_HOSTS = ['*.azurewebsites.net']
 
 
 # Application definition
