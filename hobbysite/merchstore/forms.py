@@ -18,6 +18,10 @@ class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         exclude = ['buyer', 'product', 'status']
+        
+        def __init__(self, *args, **kwargs):
+            product = self.request.product
+            self.fields['amount'].validators.append(MaxValueValidator(product.stock, "Quantity greater than stock."))
 
 
 
