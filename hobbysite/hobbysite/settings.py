@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
-    'merchstore',
     'commissions',
+    'merchstore',
     'user_management'
 ]
 

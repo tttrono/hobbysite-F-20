@@ -23,7 +23,7 @@ urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('commissions.urls', namespace='commissions')),
+	path('commissions/', include('commissions.urls', namespace='commissions')),
     path('merchstore/', include('merchstore.urls', namespace='merchstore')),
     path('profile/', include('user_management.urls', namespace='profile')),
 ]

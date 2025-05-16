@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %} Add a commission {% endblock title %}
+
+{% block content%}
+		
+	<div class="content">
+        <h2> Commissions </h2>
+		<ul>
+			 {% if user.is_authenticated %}
+				<b> Commissions created </b>
+				<ul>
+					{% if commissions_created %}
+						{% for commission in commissions_created %}
+				           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+							{{ commission.description }} <br><br>
+			            {% endfor %}
+					{% else %}
+						No commissions created yet. <br>
+					{% endif %}
+					<a href= "{% url 'commissions:add' %}" > Add a Commission </a> <br><br>
+				</ul>
+				
+				<b> Commissions joined </b>
+				<ul>				
+					{% if commissions_joined %}
+						{% for commission in commissions_joined %}
+				           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> <br>
+			            {% endfor %} <br>
+					{% else %}
+						No commissions joined yet. <br>
+					{% endif %}
+				</ul>
+			{% endif %}
+			
+			<h4> All Commissions </h4>
+	        <ul>
+				{% if commissions %}
+					{% for commission in open_commissions %}
+			           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+						{{ commission.description }} <br><br>
+		            {% endfor %}
+					{% for commission in full_commissions %}
+			           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+						{{ commission.description }} <br><br>
+		            {% endfor %}
+					{% for commission in completed_commissions %}
+			           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+						{{ commission.description }} <br><br>
+		            {% endfor %}
+					{% for commission in discontinued_commissions %}
+			           	<a href="{{ commission.get_absolute_url }}"> {{ commission.title }}</a> [{{commission.status}}] <br>
+						{{ commission.description }} <br><br>
+		            {% endfor %}
+				{% else %}
+					No commissions at this time. <br><br>
+				{% endif %}
+			
+	        </ul>
+		</ul>
+	</div>
+		
+{% endblock %}
