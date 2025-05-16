@@ -26,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables from .env file
 load_dotenv()
 # Access environment variables
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG')
+SECRET_KEY = os.environ('SECRET')
+DEBUG = False
 #DATABASE_URL = os.getenv('DATABASE_URL')
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://hobbysite-f-20-g0gqa7acascyhed2.southeastasia-01.azurewebsites.net/']
 
 
 # Application definition
