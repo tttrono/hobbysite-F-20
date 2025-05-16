@@ -4,13 +4,13 @@ from .views import ProductListView, ProductDetailView, ProductUpdateView, Produc
 
 
 urlpatterns = [ 
-    path('merchstore/items', ProductListView.as_view(), name='items'),
-    path('merchstore/item/<int:pk>', ProductDetailView.as_view(), name='item'),
-    path('merchstore/item/add', ProductCreateView.as_view(), name='add'),
-    path('merchstore/item/<int:pk>/update', ProductUpdateView.as_view(), name='update'),
-    path('merchstore/product_type/add', ProductTypeCreateView.as_view(), name='add_product_type'),
-    path('merchstore/transactions', TransactionListView.as_view(), name='transactions'),
-    path('merchstore/cart', CartView.as_view(), name='cart'),
+    path('items', ProductListView.as_view(), name='items'),
+    path('item/<int:pk>', ProductDetailView.as_view(), name='item'),
+    path('item/add', ProductCreateView.as_view(), name='add'),
+    path('item/<int:pk>/update', ProductUpdateView.as_view(), name='update'),
+    path('product_type/add', ProductTypeCreateView.as_view(), name='add_product_type'),
+    path('transactions', TransactionListView.as_view(), name='transactions'),
+    path('cart', CartView.as_view(), name='cart'),
 
 ]
 
