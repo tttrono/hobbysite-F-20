@@ -31,7 +31,7 @@ DEBUG = False
 #DATABASE_URL = os.getenv('DATABASE_URL')
 
 
-ALLOWED_HOSTS = ['https://hobbysite-f-20-g0gqa7acascyhed2.southeastasia-01.azurewebsites.net/']
+ALLOWED_HOSTS = ['hobbysite-f-20-g0gqa7acascyhed2.canadacentral-01.azurewebsites.net']
 
 
 # Application definition
