@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 # Access environment variables
 SECRET_KEY = os.environ('SECRET')
-DEBUG = False
+DEBUG = os.environ('DEBUG')
 #DATABASE_URL = os.getenv('DATABASE_URL')
 
 
