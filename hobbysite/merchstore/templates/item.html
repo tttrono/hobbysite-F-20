@@ -1,13 +1,41 @@
-<html>
-    <head>
-        <title> {{ product.name }} </title>
-    </head>
-    <body>
-        <h2> {{ product.name }} </h2>
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %} {{ product.product_type }} - {{ product.name }} {% endblock title %}
+
+{% block content %}
+	
+	<div class="content">
+
+        <h4> {{ product.name }} </h4>
         <ul>
 			{{ product.product_type }} <br>
-			{{ product.description }} <br> <br>
+			{{ product.description }} <br> 
 			{{ product.price }} <br>
+			{{ product.stock }} <br>
+			<span class="badge bg-warning text-dark"> {{ product.status }} </span>  <br>
+			
+			{% if product.owner == logged_user %}
+				<a href="{% url 'merchstore:update' pk=product.pk %}"> Update this product </a> 
+			{% endif %}
         </ul>
-    </body>
-</html>
+		
+		{% if product.owner != logged_user and product.stock != 0 %}
+			<div class="content" style="width:800px;">
+				<h5> Buy this product </h5>
+				<form method="POST">
+					{% csrf_token %}
+					{% bootstrap_form form set_placeholder=False %}
+					<button type="submit" class="button"> Place order </button>
+					
+					{% if errors.overbuy %}
+					    <br> Only {{ product.stock }} stock/s available.
+					{%endif%}
+					
+				</form>
+			</div>
+		{% endif %}
+		
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %} Add a product {% endblock title %}
+
+{% block content %}
+	
+	<div class="content">
+		
+		<h3> Add a product </h3>
+	
+		<form method="POST">
+			{% csrf_token %}
+			{% bootstrap_form form set_placeholder=False %}
+			<button type="submit" class="button"> Add product </button> 
+			or <a href= "{% url 'merchstore:add_product_type' %}" > Add a product type </a> <br>
+		</form>
+		
+	<div>
+
+{% endblock content %}
+

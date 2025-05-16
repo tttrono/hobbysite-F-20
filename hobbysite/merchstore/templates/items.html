@@ -1,26 +1,75 @@
-<html>
-    <head>
-        <title>Products</title>
-    </head>
-    <body>
+{% extends 'base.html' %}
+
+{% block title %} Products {% endblock title %}
+
+{% block content%}
+		
+	<div class="content">
+		
         <h2> Products </h2>
-		<ul>
-			{% for type in product_types %}
-				{{ type }} <br> 
-				
-				<ul>
-					{% if products %}
-						{% for product in products %}
-							{% if product.product_type == type %}
-			                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
-							{% endif %}
+		{% if user.is_authenticated %}
+			<ul>
+				{% if seller_products %}
+					<h5> Your Products </h5>
+					<ul>
+						{% for type in product_types %}
+							<b> {{ type }} </b> <br> 
+							<ul>
+								{% for product in seller_products %}
+									{% if product.product_type == type %}
+					                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
+									{% endif %}
+								{% endfor %}
+							</ul>
 						{% endfor %}
-					{% else %}
-						No products available.
-					{% endif %}
-				</ul>
+					</ul>
+				{% endif %}
+			</ul>
+			
+			<ul>
+				{% if other_products %}
+					<h5> All Products </h5>
+					<ul>
+						{% for type in product_types %}
+							<b> {{ type }} </b> <br> 
+							<ul>
+								{% for product in other_products %}
+									{% if product.product_type == type %}
+					                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
+									{% endif %}
+								{% endfor %}
+							</ul>
+							
+						{% endfor %}
+					</ul>
+				{% else %}
+					No products at the moment. <br>
+				{% endif %}
 				
-			{% endfor %}
-        </ul>
-    </body>
-</html>
+				<br><a href= "{% url 'merchstore:add' %}" > Add a product </a>
+				<br><a href= "{% url 'merchstore:transactions' %}" > View transactions </a>
+				<br><a href= "{% url 'merchstore:cart' %}" > View cart </a>
+        	</ul>
+		{% else %}
+		<ul>
+			{% if products %}
+				<ul>
+					{% for type in product_types %}
+						<b> {{ type }} </b> <br> 
+						<ul>
+							{% for product in products %}
+								{% if product.product_type == type %}
+				                	<li> <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></li> 
+								{% endif %}
+							{% endfor %}
+						</ul>
+					{% endfor %}
+				</ul>
+			{% else %}
+				No products at the moment. <br>
+			{% endif %}
+		</ul>
+		{% endif %}
+	</div>
+	
+{% endblock %}
