@@ -32,7 +32,7 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*.azurewebsites.net']
-
+CSRF_TRUSTED_ORIGINS = ['*.azurewebsites.net']
 
 # Application definition
 
