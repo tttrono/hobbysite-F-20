@@ -31,8 +31,8 @@ DEBUG = True
 #DATABASE_URL = os.getenv('DATABASE_URL')
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'hobbysite-F-20.azurewebsites.net']
-CSRF_TRUSTED_ORIGINS = ["https://hobbysite-F-20.azurewebsites.net"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'hobbysite-f-20-g0gqa7acascyhed2.canadacentral-01.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ["https://hobbysite-f-20-g0gqa7acascyhed2.canadacentral-01.azurewebsites.net"]
 
 # Application definition
 
