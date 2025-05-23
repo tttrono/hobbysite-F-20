@@ -26,13 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables from .env file
 load_dotenv()
 # Access environment variables
-SECRET_KEY = '1ec05DekND'
-DEBUG = os.getenv('DEBUG')
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = False
 #DATABASE_URL = os.getenv('DATABASE_URL')
 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'hobbysite20.azurewebsites.net']
-
+CSRF_TRUSTED_ORIGINS = ["https://hobbysite20.azurewebsites.net"]
 
 # Application definition
 
