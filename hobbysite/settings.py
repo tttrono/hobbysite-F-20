@@ -140,7 +140,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login"
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR/'registration/emails'
+
+EMAIL_BACKEND = 'django_azure_communication_email.EmailBackend'
+EMAIL_HOST = 'smtp.azurecomm.net'
+EMAIL_PORT = 587
+AZURE_COMMUNICATION_CONNECTION_STRING = os.getenv('AZURE_COMM_EMAIL_SERVICE_CONNECTION_STRING')
+# AZURE_KEY_CREDENTIAL = os.getenv('AZURE_COMM_KEY_CREDENTIAL')
+# AZURE_COMMUNICATION_ENDPOINT = 'https://hobbysite-communication-service.canada.communication.azure.com/'
+
+EMAIL_HOST_USER = 'DoNotReply@f4841948-5b8d-4019-84e4-1d31b0559686.azurecomm.net'
+DEFAULT_FROM_EMAIL = 'DoNotReply@f4841948-5b8d-4019-84e4-1d31b0559686.azurecomm.net'	# default email if senderAddress is not specified
+EMAIL_USE_TLS = True
 
