@@ -9,3 +9,4 @@ This project was developed in the Django web framework and designed with HTML an
 ![](https://github.com/tttrono/hobbysite-F-20/blob/main/hobbysite/hobbysite/static/images/samples/hobbysite_image_product.png)
 
 ![](https://github.com/tttrono/hobbysite-F-20/blob/main/hobbysite/hobbysite/static/images/samples/hobbysite_image_cart.png)
+
