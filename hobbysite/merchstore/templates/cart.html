@@ -25,7 +25,7 @@
 					<tr>
 				      	<td> {{ transaction.product.owner }} </th>
 				      	<td> <a href="{{ transaction.product.get_absolute_url }}"> {{ transaction.product }} </a> </td>
-				      	<td> {{ transaction.quantity }} </td>
+				      	<td> <center> {{ transaction.quantity }} </center></td>
 				      	<td> <span class="badge bg-warning text-dark"> {{ transaction.status }} </span></td>
 					  	<td> {{ transaction.created_on }} </td>
 					</tr>

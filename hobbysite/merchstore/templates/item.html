@@ -21,7 +21,7 @@
         </ul>
 		
 		{% if product.owner != logged_user and product.stock != 0 %}
-			<div class="content" style="width:800px;">
+			<div class="content" style="width:500px;">
 				<h5> Buy this product </h5>
 				<form method="POST">
 					{% csrf_token %}
