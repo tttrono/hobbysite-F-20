@@ -26,7 +26,7 @@
 				<form method="POST">
 					{% csrf_token %}
 					{% bootstrap_form form set_placeholder=False %}
-					<button type="submit" class="button"> Place order </button>
+					<button type="submit" class="button"> Add to Cart </button>
 					
 					{% if errors.overbuy %}
 					    <br> Only {{ product.stock }} stock/s available.
