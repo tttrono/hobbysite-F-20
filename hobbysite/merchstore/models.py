@@ -48,7 +48,7 @@ class Product(models.Model):
 class Transaction(LoginRequiredMixin, models.Model):
     buyer = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL, related_name='transaction')
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, related_name='transaction')
-    amount = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     
     class Status(models.TextChoices):
         ON_CART = 'on cart', 'On Cart'

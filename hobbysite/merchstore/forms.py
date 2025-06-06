@@ -21,7 +21,7 @@ class TransactionForm(forms.ModelForm):
         
         def __init__(self, *args, **kwargs):
             product = self.request.product
-            self.fields['amount'].validators.append(MaxValueValidator(product.stock, "Quantity greater than stock."))
+            self.fields['quantity'].validators.append(MaxValueValidator(product.stock, "Quantity greater than stock."))
 
 
 
