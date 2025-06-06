@@ -73,7 +73,7 @@ class ProductDetailView(FormMixin, DetailView):
         ctx = self.get_context_data(**kwargs)
         ctx["errors"] = {}
         
-        # amount = form.PositiveIntegerField(validators=[MaxValueValidator(product.stock)],
+        # quantity = form.PositiveIntegerField(validators=[MaxValueValidator(product.stock)],
         # help_text="Only %s stock/s left" % (product.stock))
         
         if form.is_valid():
@@ -81,11 +81,11 @@ class ProductDetailView(FormMixin, DetailView):
             transaction.buyer = buyer
             transaction.product = product
             
-            if product.stock < transaction.amount:
+            if product.stock < transaction.quantity:
                 ctx["errors"]["overbuy"] = True
                 return render(request, self.template_name, context=ctx)
             
-            product.stock = product.stock - transaction.amount
+            product.stock = product.stock - transaction.quantity
             transaction.status = Transaction.Status.ON_CART
             
             if product.stock == 0:
@@ -97,13 +97,13 @@ class ProductDetailView(FormMixin, DetailView):
         else:
             return self.form_invalid(form)
         
-    def clean_amount(self):
-        amount = self.cleaned_data['amount']
+    def clean_quantity(self):
+        quantity = self.cleaned_data['quantity']
         product = Product.objects.get(pk=self.kwargs.get('pk'))
         
-        if amount > product.stock:
+        if quantity > product.stock:
             raise ValueError("Quantity greater than stock.")
-        return amount
+        return quantity
     
     def form_valid(self, form):
         form.save()
