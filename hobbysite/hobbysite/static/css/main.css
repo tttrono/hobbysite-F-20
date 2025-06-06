@@ -1,3 +1,9 @@
 * { box-sizing: border-box; }
 /*body { margin: 8px; padding: 8px; }*/
 div.content { margin: 16px; padding: 16px; }
+div.deck { margin: 32px; padding: 32px; }
+
+.center { text-align: center; }
+.special .card-body {
+  flex-grow: 0;
+}
