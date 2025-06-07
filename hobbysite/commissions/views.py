@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.urls.base import reverse_lazy
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
@@ -20,8 +19,6 @@ class CommissionListView(ListView):
     model = Commission
     context_object_name = 'commissions'
     template_name = "commissions_list.html"
-    
-
     
     def get_context_data(self, **kwargs):
         context = super(CommissionListView, self).get_context_data(**kwargs)
@@ -93,10 +90,7 @@ class CommissionDetailView(FormMixin, DetailView):
             job_application.job = job
             job_application.applicant = applicant
             
-            #job_application.status = Job.Status.PENDING
-            job_application.status = JobApplication.Status.ACCEPTED
-            
-            job.manpower_required = job.manpower_required - 1
+            job_application.status = Job.Status.PENDING
             
             if job.manpower_required == 0:
                 job.status = Job.Status.FULL
@@ -150,8 +144,6 @@ class JobCreateView(LoginRequiredMixin, CreateView):
         commission = Commission.objects.get(pk=self.kwargs.get('pk'))
         return reverse('commissions:detail', args=[commission.pk])
     
-
-
-    
-    
+	
+	
     
