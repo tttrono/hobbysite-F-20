@@ -91,8 +91,6 @@ class CommissionDetailView(FormMixin, DetailView):
             job_application.applicant = applicant
             
             job_application.status = Job.Status.PENDING
-            # job_application.status = JobApplication.Status.ACCEPTED
-            # job.manpower_required = job.manpower_required - 1
             
             if job.manpower_required == 0:
                 job.status = Job.Status.FULL
