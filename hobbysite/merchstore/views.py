@@ -144,9 +144,9 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             if product.stock == 0:
                 product.status = Product.Status.OUT_OF_STOCK
 			
-			if product.stock > 0:
-				if product.status != Product.Status.ON_SALE:
-					product.status = Product.Status.AVAILABLE
+	    if product.stock > 0:
+		if product.status != Product.Status.ON_SALE:
+		    product.status = Product.Status.AVAILABLE
             
             product.save()
             
@@ -161,7 +161,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('merchstore:item', args=[self.object.pk])
 
-# DELETE THIS
+# FOR ADMIN ONLY
 class ProductTypeCreateView(LoginRequiredMixin, CreateView):
     """A view for creating new product type. """
     model = ProductType
